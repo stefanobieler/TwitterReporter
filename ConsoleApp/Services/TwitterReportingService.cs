@@ -29,7 +29,10 @@ public class TwitterReportingService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken cancelToken)
     {
+        // Set the printer to listen to when a tweet is received
         TwitterHttpService.OnReceivedTweet += _hashTagReportService.PrintReport;
+        
+        // establish connection and begin receiving tweets
         await _httpService.GetVolumeStreamAsync(cancelToken);
     }
 
